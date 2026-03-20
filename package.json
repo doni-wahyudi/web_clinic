@@ -1,10 +1,13 @@
 {
-  "name": "web_klinik_temp",
+  "name": "web_clinic",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://doni-wahyudi.github.io/web_clinic",
   "scripts": {
     "dev": "vite",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -25,6 +28,7 @@
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
+    "gh-pages": "^6.3.0",
     "globals": "^17.4.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.57.0",
