@@ -9,6 +9,7 @@ const navLinks = [
   { to: '/reservasi', label: 'Reservasi' },
   { to: '/dokter', label: 'Dokter' },
   { to: '/artikel', label: 'Artikel' },
+  { to: '/tentang', label: 'Tentang Kami' },
   { to: '/kontak', label: 'Kontak' },
 ];
 
@@ -73,7 +74,7 @@ const Navbar = () => {
               ))}
             </div>
             <Link to="/reservasi" className="btn btn-primary btn-sm navbar-cta" id="nav-cta-reservasi">
-              Buat Janji
+              Reservasi
             </Link>
           </div>
 

@@ -68,7 +68,7 @@ const Footer = () => {
         <div className="footer-bottom">
           <p>&copy; {new Date().getFullYear()} KlinikSehat. Semua hak cipta dilindungi.</p>
           <Link to="/reservasi" className="footer-cta">
-            Buat Janji Temu <ArrowRight size={16} />
+            Reservasi <ArrowRight size={16} />
           </Link>
         </div>
       </div>

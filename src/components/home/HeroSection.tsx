@@ -48,7 +48,7 @@ const HeroSection = () => {
 
           <div className="hero-cta-row">
             <Link to="/reservasi" className="btn btn-primary btn-lg" id="hero-cta-reservasi">
-              Buat Janji Temu <ArrowRight size={18} />
+              Reservasi <ArrowRight size={18} />
             </Link>
             <Link to="/layanan" className="btn btn-ghost btn-lg" id="hero-cta-layanan">
               Lihat Layanan

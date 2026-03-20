@@ -1,37 +1,22 @@
+import { useState, useEffect } from 'react';
 import { Clock, ArrowRight } from 'lucide-react';
-import galleryConsultation from '../assets/gallery/consultation.png';
-import galleryCheckup from '../assets/gallery/checkup.png';
-import galleryExterior from '../assets/gallery/exterior.png';
+import { supabase } from '../lib/supabase';
 import './Articles.css';
 
-const articles = [
-  {
-    title: 'Tips Menjaga Kesehatan di Musim Hujan',
-    excerpt: 'Musim hujan sering membawa berbagai penyakit. Berikut tips efektif menjaga daya tahan tubuh Anda dan keluarga.',
-    image: galleryConsultation,
-    date: '15 Maret 2026',
-    category: 'Tips Kesehatan',
-    readTime: '5 menit',
-  },
-  {
-    title: 'Pentingnya Medical Check-Up Rutin',
-    excerpt: 'Pemeriksaan kesehatan berkala sangat penting untuk deteksi dini penyakit. Ketahui kapan waktu yang tepat untuk check-up.',
-    image: galleryCheckup,
-    date: '10 Maret 2026',
-    category: 'Edukasi',
-    readTime: '7 menit',
-  },
-  {
-    title: 'Panduan Perawatan Gigi untuk Keluarga',
-    excerpt: 'Kesehatan gigi yang baik dimulai dari kebiasaan sehari-hari. Simak panduan lengkap perawatan gigi untuk seluruh anggota keluarga.',
-    image: galleryExterior,
-    date: '5 Maret 2026',
-    category: 'Poli Gigi',
-    readTime: '6 menit',
-  },
-];
-
 const Articles = () => {
+  const [articles, setArticles] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      setLoading(true);
+      const { data } = await supabase.from('articles').select('*').order('created_at', { ascending: false });
+      if (data) setArticles(data);
+      setLoading(false);
+    };
+    fetchArticles();
+  }, []);
+
   return (
     <section className="section articles-page" id="articles-page">
       <div className="container">
@@ -44,27 +29,32 @@ const Articles = () => {
           </p>
         </div>
 
-        <div className="articles-grid">
-          {articles.map((article, i) => (
-            <article key={i} className="article-card animate-fade-in-up" style={{ animationDelay: `${i * 150}ms` }}>
-              <div className="article-img-wrapper">
-                <img src={article.image} alt={article.title} className="article-img" />
-                <span className="article-category">{article.category}</span>
-              </div>
-              <div className="article-content">
-                <div className="article-meta">
-                  <span>{article.date}</span>
-                  <span><Clock size={14} /> {article.readTime}</span>
+        {loading ? (
+          <div className="text-center" style={{ padding: '3rem' }}>Memuat artikel...</div>
+        ) : (
+          <div className="articles-grid">
+            {articles.map((article, i) => (
+              <article key={article.id} className="article-card animate-fade-in-up" style={{ animationDelay: `${i * 100}ms` }}>
+                <div className="article-img-wrapper">
+                  <img src={article.image_url || 'https://placehold.co/600x400?text=Artikel'} alt={article.title} className="article-img" />
+                  <span className="article-category">{article.category}</span>
                 </div>
-                <h3 className="article-title">{article.title}</h3>
-                <p className="article-excerpt">{article.excerpt}</p>
-                <a href="#" className="article-link">
-                  Baca Selengkapnya <ArrowRight size={14} />
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
+                <div className="article-content" style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div className="article-meta">
+                    <span style={{ fontSize: '0.85rem' }}>{new Date(article.created_at).toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'})}</span>
+                    <span><Clock size={14} /> {article.read_time}</span>
+                  </div>
+                  <h3 className="article-title">{article.title}</h3>
+                  <p className="article-excerpt flex-1">{article.excerpt}</p>
+                  <a href="#" className="article-link" style={{ marginTop: 'auto' }}>
+                    Baca Selengkapnya <ArrowRight size={14} />
+                  </a>
+                </div>
+              </article>
+            ))}
+            {articles.length === 0 && <div className="text-center" style={{gridColumn: '1/-1'}}>Belum ada artikel dipublikasikan.</div>}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -1,29 +1,59 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CalendarCheck, User, Clock, FileText, CheckCircle } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 import './Reservation.css';
-
-const doctors = [
-  { id: 1, name: 'dr. Ahmad Fauzi, Sp.PD', specialty: 'Poli Umum' },
-  { id: 2, name: 'drg. Siti Nurhaliza', specialty: 'Poli Gigi' },
-  { id: 3, name: 'dr. Rina Kartika, Sp.A', specialty: 'Poli Anak' },
-];
 
 const timeSlots = ['08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00', '19:00', '20:00'];
 
 const Reservation = () => {
+  const [doctors, setDoctors] = useState<any[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [reservationCode, setReservationCode] = useState('');
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({
     name: '', phone: '', doctor: '', date: '', time: '', complaint: ''
   });
   const [submitted, setSubmitted] = useState(false);
 
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      const { data } = await supabase.from('doctors').select('*').order('id', { ascending: true });
+      if (data) setDoctors(data);
+    };
+    fetchDoctors();
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    
+    // Generate unique code (e.g. RSV-8A9F21)
+    const uniqueCode = `RSV-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+    setReservationCode(uniqueCode);
+
+    const payload = {
+      reservation_code: uniqueCode,
+      patient_name: form.name,
+      patient_phone: form.phone,
+      doctor_id: Number(form.doctor),
+      reservation_date: form.date,
+      reservation_time: form.time,
+      complaint: form.complaint || null,
+      status: 'pending'
+    };
+
+    const { error } = await supabase.from('reservations').insert([payload]);
+    
+    setIsSubmitting(false);
+    if (!error) {
+      setSubmitted(true);
+    } else {
+      alert('Gagal membuat reservasi. Periksa koneksi atau database Anda.');
+    }
   };
 
   if (submitted) {
@@ -35,6 +65,7 @@ const Reservation = () => {
             <h2>Reservasi Berhasil!</h2>
             <p>Terima kasih, <strong>{form.name}</strong>. Reservasi Anda telah tercatat.</p>
             <div className="success-details">
+              <div className="detail-row"><span>Kode Reservasi</span><strong style={{color: 'var(--primary)', letterSpacing: '1px'}}>{reservationCode}</strong></div>
               <div className="detail-row"><span>Dokter</span><strong>{doctors.find(d => d.id === Number(form.doctor))?.name}</strong></div>
               <div className="detail-row"><span>Tanggal</span><strong>{form.date}</strong></div>
               <div className="detail-row"><span>Waktu</span><strong>{form.time}</strong></div>
@@ -148,9 +179,9 @@ const Reservation = () => {
                 <div className="confirm-row"><span>Keluhan</span><strong>{form.complaint || '-'}</strong></div>
               </div>
               <div className="form-actions">
-                <button type="button" className="btn btn-outline" onClick={() => setStep(2)}>Kembali</button>
-                <button type="submit" className="btn btn-primary btn-lg">
-                  Konfirmasi Reservasi <CalendarCheck size={18} />
+                <button type="button" className="btn btn-outline" onClick={() => setStep(2)} disabled={isSubmitting}>Kembali</button>
+                <button type="submit" className="btn btn-primary btn-lg" disabled={isSubmitting}>
+                  {isSubmitting ? 'Memproses...' : <>Konfirmasi Reservasi <CalendarCheck size={18} /></>}
                 </button>
               </div>
             </div>

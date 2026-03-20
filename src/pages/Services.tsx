@@ -1,5 +1,5 @@
 import { Stethoscope, Smile, FlaskConical, Pill, HeartPulse, Baby, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+
 import generalImg from '../assets/services/general.png';
 import dentalImg from '../assets/services/dental.png';
 import labImg from '../assets/services/laboratory.png';
@@ -78,9 +78,9 @@ const Services = () => {
                     <li key={j}>✓ {f}</li>
                   ))}
                 </ul>
-                <Link to="/reservasi" className="btn btn-primary btn-sm">
-                  Buat Janji <ArrowRight size={14} />
-                </Link>
+                <a href="/reservasi" className="service-card-cta">
+                  Reservasi <ArrowRight size={14} />
+                </a>
               </div>
             </div>
           ))}

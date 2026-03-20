@@ -219,3 +219,140 @@
   .dash-stats-grid { grid-template-columns: repeat(2, 1fr); }
   .dash-table-header { flex-direction: column; gap: var(--space-3); }
 }
+
+/* Dashboard Action Tabs */
+.dash-tabs {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  overflow-x: auto;
+}
+
+.dash-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.dash-tab-btn:hover {
+  color: var(--primary);
+}
+
+.dash-tab-btn.active {
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+}
+
+.dash-content-area {
+  min-height: 400px;
+}
+
+/* CRUD Forms */
+.dash-form-card {
+  background: var(--background-alt);
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  margin-bottom: var(--space-8);
+}
+
+.dash-form-card h3 {
+  margin-bottom: var(--space-5);
+  color: var(--primary);
+}
+
+.crud-form .form-group.row {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.crud-form .col {
+  flex: 1;
+}
+
+/* List Cards */
+.dash-grid-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+}
+
+.dash-list-card {
+  background: var(--background-alt);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  display: flex;
+  flex-direction: column;
+}
+
+.doc-avatar {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  background: rgba(13, 148, 136, 0.05);
+}
+
+.doc-avatar img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.doc-info {
+  padding: 20px;
+  text-align: center;
+}
+
+.doc-info h4 {
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.doc-info .specialty {
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.doc-info .schedule {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.doc-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 20px 20px;
+  margin-top: auto;
+}
+
+.action-edit {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+.action-edit:hover { background: #3b82f6; color: #fff; }
+
+.article-card-admin .doc-info {
+  text-align: left;
+}
