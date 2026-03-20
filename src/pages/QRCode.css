@@ -1,0 +1,126 @@
+.qr-page {
+  padding-top: var(--space-12);
+}
+
+.qr-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .qr-layout { grid-template-columns: 1fr; }
+}
+
+.qr-input-card,
+.qr-display-card {
+  background: var(--background-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+}
+
+.qr-card-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.qr-card-desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-6);
+  line-height: 1.6;
+}
+
+.qr-info-box {
+  margin-top: var(--space-6);
+  padding: var(--space-5);
+  background: rgba(13, 148, 136, 0.06);
+  border: 1px solid rgba(13, 148, 136, 0.12);
+  border-radius: var(--radius-lg);
+}
+
+.qr-info-box h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.qr-info-box ol {
+  list-style: decimal;
+  padding-left: var(--space-5);
+}
+
+.qr-info-box li {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2);
+  line-height: 1.5;
+}
+
+/* QR Display */
+.qr-display-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.qr-result {
+  text-align: center;
+}
+
+.qr-image-frame {
+  display: inline-block;
+  padding: 20px;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  margin-bottom: var(--space-4);
+}
+
+.qr-image {
+  width: 250px;
+  height: 250px;
+}
+
+.qr-data-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-5);
+  word-break: break-all;
+}
+
+.qr-actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.qr-empty {
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.qr-empty-icon {
+  opacity: 0.15;
+  margin-bottom: var(--space-4);
+}
+
+.qr-empty p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.qr-empty span {
+  font-size: 0.85rem;
+}
