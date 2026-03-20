@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CalendarCheck, User, Phone, Clock, FileText, CheckCircle } from 'lucide-react';
+import { CalendarCheck, User, Clock, FileText, CheckCircle } from 'lucide-react';
 import './Reservation.css';
 
 const doctors = [
