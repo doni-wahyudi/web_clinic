@@ -1,20 +1,42 @@
 import { useState } from 'react';
-import { Lock, Mail, ArrowRight } from 'lucide-react';
+import { Lock, Mail, ArrowRight, Loader } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '../lib/supabase';
 import './Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simple demo login
-    if (form.email === 'admin@kliniksehat.com' && form.password === 'admin123') {
+    setError('');
+    
+    // Check if env vars are configured
+    if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
+      setError('Konfigurasi Supabase belum diatur di file .env');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const { error: authError } = await supabase.auth.signInWithPassword({
+        email: form.email,
+        password: form.password,
+      });
+
+      if (authError) {
+        throw authError;
+      }
+
       navigate('/dashboard');
-    } else {
-      setError('Email atau password salah. Coba: admin@kliniksehat.com / admin123');
+    } catch (err: any) {
+      setError(err.message || 'Email atau password salah. Silakan coba lagi.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -40,6 +62,7 @@ const Login = () => {
                 value={form.email}
                 onChange={e => setForm({ ...form, email: e.target.value })}
                 required
+                disabled={loading}
               />
             </div>
             <div className="form-group">
@@ -51,15 +74,16 @@ const Login = () => {
                 value={form.password}
                 onChange={e => setForm({ ...form, password: e.target.value })}
                 required
+                disabled={loading}
               />
             </div>
-            <button type="submit" className="btn btn-primary login-btn">
-              Masuk <ArrowRight size={16} />
+            <button type="submit" className="btn btn-primary login-btn" disabled={loading}>
+              {loading ? <Loader size={16} className="animate-spin" /> : 'Masuk'} <ArrowRight size={16} />
             </button>
           </form>
 
           <p className="login-hint">
-            Demo: <code>admin@kliniksehat.com</code> / <code>admin123</code>
+             Pastikan file <code>.env</code> sudah dikonfigurasi dengan URL & Anon Key Supabase Anda.
           </p>
         </div>
       </div>

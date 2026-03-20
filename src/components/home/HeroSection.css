@@ -154,12 +154,21 @@
   }
 
   .hero-img-wrapper {
-    max-width: 320px;
+    max-width: 280px;
   }
 
   .hero-badge-1 {
-    right: 0;
-    bottom: 10%;
+    right: 0px;
+    bottom: 5%;
+    padding: 10px 14px;
+  }
+
+  .hero-badge-1 strong {
+    font-size: 0.85rem;
+  }
+
+  .hero-badge-1 span {
+    font-size: 0.7rem;
   }
 }
 
@@ -196,14 +205,14 @@
 
 .hero-title-light {
   font-weight: 400;
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   color: #ffffff;
   opacity: 1;
 }
 
 .hero-title-bold {
   font-weight: 800;
-  font-size: 3.25rem;
+  font-size: 2.3rem;
   color: #fff;
 }
 
@@ -215,6 +224,11 @@
 }
 
 @media (min-width: 768px) {
+  .hero-title-light { font-size: 2.5rem; }
+  .hero-title-bold { font-size: 3.25rem; }
+}
+
+@media (min-width: 992px) {
   .hero-title-light { font-size: 3rem; }
   .hero-title-bold { font-size: 4rem; }
 }
