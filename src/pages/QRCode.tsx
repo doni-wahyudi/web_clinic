@@ -1,10 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { QrCode, Download, Printer, RefreshCw } from 'lucide-react';
 import './QRCode.css';
 
 const QRCodePage = () => {
-  const [inputData, setInputData] = useState('');
-  const [qrData, setQrData] = useState('');
+  const [searchParams] = useSearchParams();
+  const codeParam = searchParams.get('code') || '';
+  
+  const [inputData, setInputData] = useState(codeParam);
+  const [qrData, setQrData] = useState(codeParam);
+
+  useEffect(() => {
+    if (codeParam) {
+      setInputData(codeParam);
+      setQrData(codeParam);
+    }
+  }, [codeParam]);
 
   const generateQR = () => {
     if (inputData.trim()) {

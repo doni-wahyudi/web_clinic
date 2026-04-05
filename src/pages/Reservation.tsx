@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { CalendarCheck, User, Clock, FileText, CheckCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import './Reservation.css';
@@ -73,7 +74,7 @@ const Reservation = () => {
             </div>
             <p className="success-note">Silakan datang 15 menit sebelum jadwal. Anda juga dapat menggunakan QR Code untuk check-in cepat.</p>
             <div className="success-actions">
-              <a href="/qr-code" className="btn btn-primary">Lihat QR Code</a>
+              <Link to={`/qr-code?code=${reservationCode}`} className="btn btn-primary">Lihat QR Code</Link>
               <button className="btn btn-outline" onClick={() => { setSubmitted(false); setStep(1); setForm({ name: '', phone: '', doctor: '', date: '', time: '', complaint: '' }); }}>
                 Buat Reservasi Lagi
               </button>
