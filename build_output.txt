@@ -1,0 +1,2 @@
+﻿src/components/dashboard/ScannerTab.tsx(2,10): error TS1484: 'IScannerProps' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/components/dashboard/ScannerTab.tsx(88,7): error TS2353: Object literal may only specify known properties, and 'audio' does not exist in type 'IScannerComponents'.

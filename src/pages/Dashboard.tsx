@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { BarChart3, CalendarCheck, Users, FileText } from 'lucide-react';
+import { BarChart3, CalendarCheck, Users, FileText, ScanBarcode } from 'lucide-react';
 import ReservationsTab from '../components/dashboard/ReservationsTab';
 import DoctorsTab from '../components/dashboard/DoctorsTab';
 import ArticlesTab from '../components/dashboard/ArticlesTab';
+import ScannerTab from '../components/dashboard/ScannerTab';
 import './Dashboard.css';
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState<'reservations' | 'doctors' | 'articles'>('reservations');
+  const [activeTab, setActiveTab] = useState<'reservations' | 'doctors' | 'articles' | 'scanner'>('reservations');
 
   return (
     <section className="section dashboard-page" id="dashboard-page">
@@ -38,6 +39,12 @@ const Dashboard = () => {
           >
             <FileText size={18} /> Artikel
           </button>
+          <button 
+            className={`dash-tab-btn ${activeTab === 'scanner' ? 'active' : ''}`}
+            onClick={() => setActiveTab('scanner')}
+          >
+            <ScanBarcode size={18} /> Scanner
+          </button>
         </div>
 
         {/* Tab Content */}
@@ -45,6 +52,7 @@ const Dashboard = () => {
           {activeTab === 'reservations' && <ReservationsTab />}
           {activeTab === 'doctors' && <DoctorsTab />}
           {activeTab === 'articles' && <ArticlesTab />}
+          {activeTab === 'scanner' && <ScannerTab />}
         </div>
       </div>
     </section>
