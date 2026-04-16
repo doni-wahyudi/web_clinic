@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://doni-wahyudi.github.io/web_clinic",
+  "homepage": "https://aurotechklinik.my.id",
   "scripts": {
     "dev": "vite",
     "predeploy": "npm run build",
