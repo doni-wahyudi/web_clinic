@@ -73,12 +73,12 @@ const ScannerTab = () => {
   };
 
   const scannerSettings: IScannerProps = {
-    onScan: (result) => {
+    onScan: (result: any) => {
       if (result && result.length > 0 && result[0].rawValue) {
         handleDecode(result[0].rawValue);
       }
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.log('Scanner error:', error);
     },
     styles: {
