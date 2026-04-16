@@ -11,7 +11,7 @@ const Footer = () => {
           {/* brand */}
           <div className="footer-col footer-brand-col">
             <div className="footer-brand">
-              <span className="brand-icon">🏥</span>
+              <img src="/favicon.png" alt="Logo" className="brand-logo-img" />
               <div className="brand-text">
                 <span className="brand-name">KlinikSehat</span>
                 <span className="brand-tagline">Modern & Terpercaya</span>

@@ -19,6 +19,12 @@
   margin-bottom: var(--space-4);
 }
 
+.brand-logo-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
 .footer-brand .brand-name {
   color: #fff;
 }
